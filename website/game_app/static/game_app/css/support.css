@@ -1,0 +1,65 @@
+@import url(general.css);
+
+main
+{
+    position: relative;
+}
+
+main form
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.topic-input
+{
+    width: 50%;
+    height: 10%;
+    font-size: 100%;
+    color: var(--orange);
+    border: none;
+    padding: 0 20px;
+    margin: 10px 0;
+}
+
+form textarea
+{
+    border: none;
+    width: 50%;
+    resize: none;
+    color: var(--orange);
+    height: 100%;
+    outline: none;
+    padding: 5px 20px;
+    font-size: 100%;
+    margin: 10px 0;
+}
+
+main input:focus
+{
+    height: 10%;
+    width: 50%;
+}
+
+main .login
+{
+    border-radius: 2px;
+}
+
+.MessageForm
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.MessageForm select
+{
+    background-color: var(--sec-color);
+    width: 20rem;
+    margin: 10px 0;
+}

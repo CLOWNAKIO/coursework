@@ -1,0 +1,129 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/index.css' %}" />
+    <title>Главная страница</title>
+{% endblock %}
+{% block main %}
+        <main>
+            <section id="popular">
+                <a href="#"><h1>Популярные</h1></a>
+                <hr>
+                <button data-status="prev" onclick="swap_games(popular, popular_offset)"><img src="{% static 'game_app/icons/icons/arrow-left.svg' %}"></button>
+                <button data-status="next" onclick="swap_games(popular, popular_offset)"><img src="{% static 'game_app/icons/icons/arrow-right.svg' %}"></button>
+                <div class="grid">
+                    {% for card in popular %}
+                        <article class="card {% cycle 'item1' 'item2' 'item3' %}" data-id="{% cycle 1 2 3 %}">
+                            <a href="{% url 'game' card.slug %}">
+                            <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{ card.cover }}.jpg">
+                            <div class="card-content">
+                                <div style="margin: 5px 0;" class="plat-list">
+                                    {% for plat in card.platforms.all %}
+                                        {{ plat }}
+                                    {% endfor %}
+                                </div>
+                                <p>{{ card.name }}</p>
+                                <button class="none" title="Добавить в библиотеку"></button>
+                            </div>
+                                                    </a>
+                        </article>
+
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="recently-released">
+                <a href="#"><h1>Новинки</h1></a>
+                <hr>
+                <button data-status="prev" onclick="swap_games(rec_rel, rel_offset)"><img src="{% static 'game_app/icons/icons/arrow-left.svg' %}"></button>
+                <button data-status="next" onclick="swap_games(rec_rel, rel_offset)"><img src="{% static 'game_app/icons/icons/arrow-right.svg' %}"></button>
+                <div class="grid">
+                    {% for card in recently %}
+                        <article class="card {% cycle 'item1' 'item2' 'item3' %}">
+                            <a href="{% url 'game' card.slug %}">
+                            <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{ card.cover }}.jpg">
+                            <div class="card-content">
+                                <div style="margin: 5px 0;" class="plat-list">
+                                    {% for plat in card.platforms.all %}
+                                        {{ plat }}
+                                    {% endfor %}
+                                </div>
+                                <p>{{ card.name }}</p>
+                                <button class="none" title="Добавить в библиотеку"></button>
+                            </div>
+                            </a>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="lists">
+                <div class="top-of-months">
+                    <h1>ТОП месяца</h1>
+                    <hr>
+                    <ul>
+                        <li><img src="/"><div>ИГРА1<br><span>2022-02-01</span></div></li>
+                        <li><img src="/"><div>ИГРА1<br><span>2022-02-01</span></div></li>
+                        <li><img src="/"><div>ИГРА1<br><span>2022-02-01</span></div></li>
+                        <li><img src="/"><div>ИГРА1<br><span>2022-02-01</span></div></li>
+                        <li><img src="/"><div>ИГРА1<br><span>2022-02-01</span></div></li>
+                    </ul>
+                </div>
+
+                <div class="coming-soon">
+                    <h1>Ожидаемые новинки</h1>
+                    <hr>
+                    <ul>
+                        {% for new in waiting %}
+                        <a href="{% url 'game' new.slug %}">
+                            <li><img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ new.cover }}.jpg"><div>{{ new.name }}<br><span>{{ new.release_date }}</span></div></li>
+                        </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </section>
+
+            <section id="categories">
+                <h1>Категории</h1>
+                <hr>
+                <button data-status="prev"><img src="{% static 'game_app/icons/icons/arrow-left.svg' %}"></button>
+                <button data-status="next"><img src="{% static 'game_app/icons/icons/arrow-right.svg' %}"></button>
+                <div class="carousel">
+                    <div class="group active" data-id="0">
+                        <a style='--i: 1;' class="category-el"></a>
+                        <a style='--i: 2;' class="category-el"></a>
+                        <a style='--i: 3;' class="category-el"></a>
+                        <a style='--i: 4;' class="category-el"></a>
+                        <a style='--i: 5;' class="category-el"></a>
+                        <a style='--i: 3;' class="category-el"></a>
+
+                    </div>
+                    <div class="group" data-id="1">
+                        <a style='--i: 6;' class="category-el"></a>
+                        <a style='--i: 7;' class="category-el"></a>
+                        <a style='--i: 8;' class="category-el"></a>
+                        <a style='--i: 9;' class="category-el"></a>
+                        <a style='--i: 10;' class="category-el"></a>
+                        <a style='--i: 5;' class="category-el"></a>
+
+                    </div>
+                    <div class="group" data-id="2">
+                        <a style='--i: 11;' class="category-el"></a>
+                        <a style='--i: 12;' class="category-el"></a>
+                        <a style='--i: 13;' class="category-el"></a>
+                        <a style='--i: 14;' class="category-el"></a>
+                        <a style='--i: 15;' class="category-el"></a>
+                        <a style='--i: 9;' class="category-el"></a>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+{% endblock %}
+{% block js %}
+
+    <script src="{% static 'game_app/js/index.js' %}"></script>
+{% endblock %}

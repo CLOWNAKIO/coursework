@@ -1,0 +1,132 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/game.css' %}" />
+    <title>{{ object.name }}</title>
+{% endblock %}
+{% block main %}
+<main>
+    <section id="back-img">
+        <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{ back_img }}.jpg">
+    </section>
+
+    <section id="top-info">
+        <div class="info">
+            <p>{{ object.name }}</p>
+            <p>{{ object.release_date }}</p>
+            <ul>
+                {% for link in websites %}
+                <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="right">
+            <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ object.cover }}.jpg">
+            {% if request.user.is_authenticated and not prev %}
+            <button form="review_form">Добавить в библиотеку</button>
+            {% else %}
+            <span>Игра в библиотеке</span>
+            {% endif %}
+        </div>
+    </section>
+
+    <section id="media-content">
+        <div class="carousel">
+            {% for video in videos %}
+            <iframe  src="https://www.youtube.com/embed/{{ video.video_id }}?controls=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% endfor %}
+            {% for image in images %}
+                 <img src="https://images.igdb.com/igdb/image/upload/t_720p/{{ image.image_id }}.jpg">
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="main-info">
+        <div class="description">
+            <h1>Описание</h1>
+            <hr>
+            <p>{{ object.description }}</p>
+        </div>
+        <div class="genres">
+            <h1>Жанры</h1>
+            <hr>
+            <p>
+                {% for genre in object.genres.all %}
+                    <span>{{ genre }}</span>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="platforms">
+            <h1>Платформы</h1>
+            <hr>
+            <p>
+                {% for platform in object.platforms.all %}
+                    <span>{{ platform }}</span>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="developer">
+            <h1>Разработчик</h1>
+            <hr>
+            <p>{{ object.developer }}</p>
+        </div>
+
+    </section>
+
+    <section id="similar">
+        <div class="container">
+            <h1>Похожие игры</h1>
+            <ul>
+                {% for game in similar %}
+                <li><a href="{% url 'game' game.slug %}"><img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{ game.cover }}.jpg"></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+    </section>
+
+    <section id="form">
+        <form action="{% url 'post_review' object.slug %}" method="post" id="review_form">
+                    {% csrf_token %}
+            <div>
+                <label for="text">Отзыв:</label>
+                <textarea name="text" placeholder="Введите ваш отзыв" id="text">{{ prev.review.text }}</textarea>
+            </div>
+            <div>
+                <label for="rate">Оценка:</label>
+                <input type="number" name="rate" min="1" max="10" value="{{ prev.rate }}" id="rate">
+            </div>
+
+        </form>
+        <button form="review_form">Оставить отзыв</button>
+    </section>
+
+    <section id="reviews">
+        <div class="container">
+            <ul>
+                {% for review in reviews %}
+                <li>
+                    <div>
+                        {% if review.user.profile.avatar %}
+                        <img src="{{ review.user.profile.avatar.url }}">
+                        {% else %}
+                        <img src="{% static 'game_app/icons/icons/default.jpg' %}">
+                        {% endif %}
+                        <p>{{ review.user.profile.nickname }}</p>
+                        <p>{{ review.date }}</p>
+                    </div>
+                    <div>
+                        {{ review.text }}
+                    </div>
+                </li>
+                 {% endfor %}
+            </ul>
+
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'game_app/js/game.js' %}"></script>
+{% endblock %}

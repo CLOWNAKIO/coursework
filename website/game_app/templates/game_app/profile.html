@@ -1,0 +1,162 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/profile.css' %}"/>
+    <title>Личный кабинет</title>
+{% endblock %}
+{% block main %}
+        <aside>
+            <div class="container">
+                <div class="progress-bar"></div>
+                <ul>
+                    <li>Профиль</li>
+                    <li>Сводка по библиотеке игр</li>
+                    <li>Библиотека игр</li>
+                    {% if request.user.username == object.username %}
+                        {% if library %}
+                        <li>Список рекомендаций</li>
+                        {% endif %}
+                    <li>Настройки</li>
+                    <li>Выйти из аккаунта</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </aside>
+        <main>
+            <section id="profile">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}">
+                {% endif %}
+                <div class="profile-info">
+                    <h1>{{ profile.nickname }}</h1>
+                    <div class="date">Зарегистрирован: <span>{{ object.date_joined }}</span></div>
+                    <div class="info">
+                        <div>
+                            <h4>Игр в библиотеке:</h4>
+                            <h2>{{ game_count }}</h2>
+                        </div>
+                        <div>
+                            <h4>Написано отзывов:</h4>
+                            <h2>{{ review_count }}</h2>
+                        </div>
+                        <div>
+                            <h4>Оценено игр:</h4>
+                            <h2>{{ rate_count }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="statistics">
+                <div class="container">
+                    <h2>Краткая сводка</h2>
+                    <div>
+                        <h2>Распределение платформ</h2>
+                        <div class="plat-line">
+                            {% if pc_count or ps_count or xbox_count or linux_count or android_count or ios_count or sega_count or nintendo_count %}
+                            <div style='--per: 0.0;'></div>
+                            {% else %}
+                            <div style='--per: 1.0;'></div>
+                            {% endif %}
+
+                            {% if pc_count > 0 %}
+                            <div style='--per: {{ pc_count|floatformat:"3u" }};' class="pc"></div>
+                            {% endif %}
+
+                            {% if ps_count > 0 %}
+                            <div style='--per: {{ ps_count|floatformat:"3u" }};' class="ps"></div>
+                            {% endif %}
+
+                            {% if linux_count > 0 %}
+                            <div style='--per: {{ linux_count|floatformat:"3u" }};' class="linux"></div>
+                            {% endif %}
+
+                            {% if ios_count > 0 %}
+                            <div style='--per: {{ ios_count|floatformat:"3u" }};' class="ios"></div>
+                            {% endif %}
+
+                            {% if android_count > 0 %}
+                            <div style='--per: {{ android_count|floatformat:"3u" }};' class="android"></div>
+                            {% endif %}
+
+                            {% if sega_count > 0 %}
+                            <div style='--per: {{ sega_count|floatformat:"3u" }};' class="sega"></div>
+                            {% endif %}
+
+                            {% if xbox_count > 0 %}
+                            <div style='--per: {{ xbox_count|floatformat:"3u" }};' class="xbox"></div>
+                            {% endif %}
+
+                            {% if nintendo_count > 0 %}
+                            <div style='--per: {{ nintendo_count|floatformat:"3u" }};' class="nintendo"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2>Распределение оценок</h2>
+                        <div class="col-diagram">
+                            <canvas width="300" height="200" id="canvas"></canvas> 
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <section id="library">
+                <div class="container">
+                    <h2>Библиотека игр</h2>
+                    <ul>
+                        {% for game in library %}
+                            <li>
+                                <a href="{% url 'game' game.game.slug %}">
+                                <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{ game.game.cover }}.jpg">
+                                </a>
+                                <div>
+                                    <p>{{ game.review.text }}</p>
+                                    <p>Оценка: <span style='float: right'>{{ game.rate }}</span></p>
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+
+            {% if request.user.username == object.username %}
+
+            {% if library %}
+            <section id="recomendation-list">
+                <div class="container">
+                    <h2><a href="{% url 'rec' %}">Перейти к списку рекомендаций</a></h2>
+                </div>
+            </section>
+            {% endif %}
+
+            <section id="settings">
+                <div class="container">
+                    <h2>Настройки профиля</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label>Аватар:</label><input type="file" name="avatar" accept="image/*" class="avatar" id="id_avatar">
+                        <label>Имя пользователя:</label><input type="text" name="nickname" maxlength="30" minlength="4" class="nickname" id="id_nickname">
+                        <button>Подтвердить</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="logout">
+                <div class="container">
+                    <a href="{% url 'logout' %}"><button>Выйти</button></a>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+{% endblock %}
+{% block js %}
+    <script>
+        const data = {{ rates }}
+    </script>
+    <script src="{% static 'game_app/js/profile.js' %}"></script>
+{% endblock %}

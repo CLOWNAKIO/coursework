@@ -1,0 +1,342 @@
+@import url(general.css);
+
+main
+{
+    position: relative;
+}
+
+section
+{
+    padding: 0;
+}
+
+#back-img
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 585px;
+    z-index: 0;
+}
+
+#back-img img
+{
+    height: 100%;
+    filter: blur(3px);
+    opacity: .3;
+}
+
+#top-info
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 0 120px;
+}
+
+#top-info .info
+{
+    background: linear-gradient(to right, var(--sec-color) 0%, var(--sec-color) 50%, rgba(0,0,0,0) 100%);
+    padding: 10px 10px;
+    margin-top: 340px;
+}
+
+#top-info .info p:first-of-type
+{
+    font-size: 5rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+#top-info .info p:last-of-type
+{
+    font-size: 1rem;
+    font-style: italic;
+    opacity: .9;
+}
+
+#top-info .info ul
+{
+    display: grid;
+    grid-template-columns: 150px 150px;
+    grid-template-rows: 1.5rem;
+    row-gap: 5px;
+    column-gap: 5px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#top-info .info li
+{
+    font-size: 2rem;
+    transition: .5s ease-in-out;
+}
+
+#top-info .info li:hover
+{
+    opacity: .7;
+}
+
+#top-info .right
+{
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+#top-info .right img
+{
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(20,20,20,.1);
+}
+
+#top-info button
+{
+    background-color: var(--orange);
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+#media-content
+{
+    height: 345px;
+    background-color: var(--sec-color);
+}
+
+#media-content .carousel
+{
+    display: flex;
+    overflow-x: scroll;
+    align-items: center;
+    padding: 15px 0;
+}
+
+#media-content .carousel::-webkit-scrollbar
+{
+    height: 20px;
+}
+
+#media-content .carousel img, #media-content .carousel iframe
+{
+    height: 315px;
+    width: 560;
+}
+
+#media-content .carousel img:not(:first-of-type), #media-content .carousel iframe:not(:first-of-type)
+{
+    margin-left: 10px;
+}
+
+#main-info
+{
+    align-items: stretch;
+    display: grid;
+    grid-template-areas:
+    "a b"
+    "a c"
+    "a d";
+    grid-template-columns: 1fr 500px;
+    column-gap: 50px;
+    row-gap: 30px;
+}
+
+#main-info .description
+{
+    grid-area: a;
+}
+
+#main-info .genres
+{
+    grid-area: b;
+}
+
+#main-info .platforms
+{
+    grid-area: c;
+}
+
+#main-info .developer
+{
+        grid-area: d;
+}
+
+#main-info div
+{
+    min-height: 50px;
+    background-color: var(--sec-color);
+    padding: 0 20px;
+    border-radius: 10px;
+
+}
+
+#main-info h1
+{
+    font-size: 3rem;
+    color: var(--orange);
+}
+
+#main-info hr
+{
+    border-color: var(--orange);
+    margin: 10px 0;
+    width: 10%;
+    transition: .6s ease-in-out;
+}
+
+#main-info .description:hover hr, #main-info .developer:hover hr, #main-info .platforms:hover hr, #main-info .genres:hover hr
+{
+    width: 100%;
+}
+
+form div textarea
+{
+    resize: none;
+    color: var(--orange);
+    font-size: 1.5rem;
+    border: none;
+    height: 100%;
+    outline: none;
+    padding: 5px;
+    background-color: #222;
+}
+
+
+form
+{
+    width: 100%;
+    padding: 0 120px;
+    display: flex;
+
+    border: none;
+}
+
+form div:first-of-type
+{
+    width: 80%;
+    height: 150px;
+}
+
+form div:last-of-type
+{
+    width: 110px;
+    margin-left: 50px;
+}
+
+form div > input[type="number"]
+{
+    color: var(--back-orange);
+    font-size: 5rem;
+    text-align: center;
+    border: none;
+    border-radius: 110px;
+     background-color: #222;
+     width: 110px;
+     height: 110px;
+}
+
+#form > button
+{
+    background-color: var(--orange);
+    font-size: 2rem;
+    padding: 5px;
+    width: 300px;
+    cursor: pointer;
+    margin-left: 120px;
+    margin-top: 10px;
+    border: none;
+}
+
+form > div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#similar
+{
+    position: relative;
+}
+
+#similar ul
+{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+}
+
+#similar .container
+{
+    background-color: var(--sec-color);
+    float: bottom;
+    height: 350px;
+    width: 100%;
+}
+
+#similar img
+{
+    height: 280px;
+    width: auto;
+    margin: 0 10px;
+}
+
+#similar h1
+{
+    margin: 5px 20px;
+    font-size: 3rem;
+    color: var(--orange);
+}
+
+#reviews img
+{
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+}
+#reviews li
+{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+#reviews
+{
+    display: flex;
+    justify-content: center;
+}
+#reviews .container
+{
+    width: 80%;
+    background-color: var(--sec-color);
+    padding: 10px;
+}
+
+#reviews p
+{
+    font-size: 1.5rem;
+}
+
+#reviews p:last-of-type
+{
+    font-size: 1rem;
+    font-style: italic;
+    opacity: .6;
+}
+
+#reviews li div:last-of-type
+{
+    padding: 10px;
+    font-size: 1.5rem;
+    background-color: #252525;
+    width: 100%;
+}
+

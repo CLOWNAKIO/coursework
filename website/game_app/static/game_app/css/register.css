@@ -1,0 +1,77 @@
+@import url(general.css);
+
+h1
+{
+    color: var(--orange);
+}
+
+form label
+{
+    font-size: 2rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+form
+{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+form input
+{
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 90%;
+    color: var(--orange);
+    font-size: 2rem;
+    height: 3rem;
+    border: 1px solid black;
+}
+
+form input:focus
+{
+    width: 90%;
+    border: 1px solid black;
+    height: 3rem;
+}
+
+.form-error
+{
+    margin: 20px auto;
+    width: 90%;
+}
+
+.form-error li
+{
+    color: rgba(255, 0, 0, .7);
+    font-size: 1rem;
+}
+
+form button
+{
+    background-color: var(--orange);
+    font-size: 2rem;
+    padding: 3px 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+form button:active
+{
+    box-shadow: 0 0 10px var(--main-color);
+}
+
+main > div
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    min-height: 400px;
+    background-color: var(--sec-color);
+    padding: 20px 0;
+}
+

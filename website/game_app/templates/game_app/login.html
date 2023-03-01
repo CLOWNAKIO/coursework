@@ -1,0 +1,29 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/register.css' %}" />
+    <title>Авторизация</title>
+{% endblock %}
+
+{% block main %}
+<main>
+    <div>
+        <h1 style="display: block; text-align: center;">Авторизация</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-error">{{ form.non_field_errors }}</div>
+
+            {% for f in form %}
+                <label class ='form-label' for="{{ f.id_for_label }}">{{ f.label }}</label>
+                {{f}}
+                <div class="form-error"> {{ f.errors }} </div>
+            {% endfor %}
+            <button type="submit">Авторизоваться</button>
+            <a href="{% url 'signup' %}">Нет аккаунта? Регистрация</a>
+        </form>
+    </div>
+
+</main>
+{% endblock %}

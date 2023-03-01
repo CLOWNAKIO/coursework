@@ -1,0 +1,126 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/search.css' %}" />
+    <title>Поиск</title>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'game_app/js/search.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+<main>
+    <section id="filter">
+        <div class='container'>
+             <div class='search-fields' data-row='1'>
+                <form method="get" id="form">
+                    <input id="name" type="text" name="name" placeholder="Введите название игры">
+                    <input class="hidden" name="genres" type="text" id="genres">
+                    <input class="hidden" name="platforms" type="text" id="platforms">
+                    <input class="hidden" name="developers" type="text" id="developers">
+                </form>
+                <div class="lists">
+                    <div class="list-container">
+                            <button class="choose-btn">Выбрать платформу(ы)</button>
+                            <ul class="search-list hidden">
+                                <button class="hide-btn">Скрыть список</button>
+                                    {% for platform in platforms.all %}
+                                        <li data-list='platforms' value="{{ platform }}">{{ platform }}</li>
+                                    {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="list-container">
+                            <button class="choose-btn">Выбрать жанр(ы)</button>
+                            <ul class="search-list hidden">
+                                <button class="hide-btn">Скрыть список</button>
+                                {% for genre in genres.all %}
+                                    <li data-list='genres' value="{{ genre }}">{{ genre }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="list-container">
+                            <button class="choose-btn">Выбрать разработчика(ов)</button>
+                            <ul class="search-list hidden">
+                                <button class="hide-btn">Скрыть список</button>
+                                    {% for developer in developers.all %}
+                                        <li data-list='developers' value="{{ developer.developer }}">{{ developer.developer }}</li>
+                                    {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+             </div>
+             <div class='search-fields' data-row='2'>
+                 <p>Дата выхода:</p>
+                 <input id="start" type="date" name="start" placeholder="От" form="form" onchange="this.className=(this.value!=''?'has-value':'')">
+                 <span style="margin: 0 auto;">&mdash;</span>
+                 <input id="end" type="date" name="end" placeholder="До" form="form" onchange="this.className=(this.value!=''?'has-value':'')">
+             </div>
+            <div class="search-fields" data-row="btns">
+                <div>
+                    <input type="submit" value="Поиск" form="form" >
+                    <input type="reset" value="Сбросить" form="form" id='reset'>
+                    <input type='radio' value="True" form="form" name="alp_asc" class="hidden" checked id="alp_asc">
+                    <input type='radio' value="False" form="form" name="alp_asc" class="hidden" id="alp_desc">
+                    <input type='checkbox' form="form" name="rate" class="hidden" id="rate">
+                </div>
+                <div>
+                    <label class="selected" for="alp_asc"></label>
+                    <label for="alp_desc" ></label>
+                    <label for="rate"></label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <div class="scroll-up">
+        <div class="back" style="display: none;" onclick="window.scrollBy({top: -20000, behavior: 'smooth'});">
+            <div class="icon"></div>
+        </div>
+    </div>
+    <section id="list">
+        <div class='container'>
+            {% for game in page_obj %}
+            <a href="{% url 'game' game.slug %}">
+                <div class='list-element'>
+                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ game.cover }}.jpg">
+                    <div class='game-info'>
+                        <div class="platforms-list">
+                            {% for platform in game.platforms.all %}
+                                <span>{{ platform.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="title">
+                            <span>{{ game.name }}</span>
+                            <br>
+                            <span>{{ game.release_date }}</span>
+                        </div>
+                        <div class="genres-list">
+                            {% for genre in game.genres.all %}
+                                <span>{{ genre.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+                <p>Список пуст</p>
+            {% endfor %}
+            {% if paginator.num_pages > 1 %}
+                <div class='page-selector'>
+                    <div class='page-container'>
+                    {% for i in page_range %}
+                        {% if i != '…' %}
+                            <a data-status='link' href="?page={{ i }}&name={{ get_req.name }}&genres={{ get_req.genres }}&platforms={{ get_req.platforms }}&start={{ get_req.start }}&end={{ get_req.end }}" ><span>{{ i }}</span></a>
+                        {% else %}
+                            <span>{{ i }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+</main>
+{% endblock %}

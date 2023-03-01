@@ -1,0 +1,462 @@
+@import url(general.css);
+
+.list-element
+{
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    background-color: var(--sec-color);
+}
+
+.list-element .game-info
+{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+}
+
+.list-element > img
+{
+    --scale: 0.4;
+    height: 169.6px;
+    width: 105.6px;
+    border: 1px solid var(--orange);
+    object-fit: cover;
+
+}
+
+.list-element .title
+{
+    flex: 1;
+    font-size: 2rem;
+    position: relative;
+}
+
+.list-element .title span:last-of-type
+{
+    opacity: .9;
+    font-size: 0.8rem;
+    font-style: italic;
+    position: absolute;
+    bottom: 5px;
+}
+
+.list-element .game-info .platforms-list,.list-element .game-info .genres-list
+{
+    display: flex;
+    height: 2rem;
+    font-size: 1rem;
+    align-items: center;
+    overflow-wrap: nowrap;
+    white-space: nowrap;
+}
+
+
+.list-element .genres-list span
+{
+    background-color: var(--orange);
+    padding: 1px 4px;
+    color: var(--text-color);
+    margin-right: 6px;
+    word-wrap: normal;
+    overflow-wrap: normal;
+}
+
+.list-element .platforms-list span
+{
+    margin-right: 6px;
+}
+
+.list-element .genres-list span::selection
+{
+    background-color: var(--text-color);
+    color: var(--orange);
+}
+
+.page-selector
+{
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.page-selector .page-container
+{
+    display: flex;
+    justify-content: center;
+}
+
+.page-selector a
+{
+    background-color: var(--orange);
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin-left: 10px;
+    position: relative;
+    transition: .3s ease-in-out;
+}
+
+.page-selector a:hover
+{
+    opacity: .95;
+    box-shadow: 0 0 7px var(--back-orange);
+}
+
+.page-selector .page-container > span
+{
+    margin-left: 10px;
+}
+
+.page-selector a span
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.list-container
+{
+    position: relative;
+}
+
+.list-container button
+{
+    width: 340px;
+    height: 2rem;
+    background-color: var(--sec-color);
+    border: 1px solid #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-sizing: content-box;
+    z-index: 3;
+}
+
+.search-list
+{
+    position: relative;
+}
+
+.search-list button
+{
+    position: sticky;
+    z-index: 2;
+    top: 0;
+}
+
+.hide-btn
+{
+    border: none;
+    border-bottom: 1px solid #333;
+}
+
+#filter
+{
+    margin-bottom: 20px;
+}
+
+#list
+{
+    width: 90%;
+}
+
+#filter .search-fields[data-row='1']
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#filter .search-fields input[type='text']::placeholder
+{
+    font-weight: 300;
+}
+
+#filter .search-fields input[type='text']::selection
+{
+    background-color: var(--orange);
+    color: var(--text-color);
+}
+
+#filter .search-fields input[type='text']
+{
+    width: 390px;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding: 7px;
+    border: none;
+    color: var(--orange)
+}
+
+button:hover
+{
+    cursor: pointer;
+}
+
+button:active
+{
+    box-shadow: 0 0 10px #333;
+}
+
+
+.search-fields ul
+{
+    height: 200px;
+    overflow-y: scroll;
+    background-color: var(--sec-color);
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    border: 1px solid #333;
+}
+
+.search-fields ul::-webkit-scrollbar
+{
+    display: none;
+}
+
+.search-fields ul li
+{
+    position: relative;
+    transition: .3s ease-in-out;
+    font-size: 1rem;
+    margin: 2px 0;
+}
+
+.search-fields ul li:hover
+{
+    cursor: pointer;
+    background-color: rgb(24, 24, 24);
+}
+
+.search-fields ul li::after
+{
+    content: "";
+    position: absolute;
+    background-image: url(../icons/icons/add.svg);
+    background-position: center;
+    background-size: cover;
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert();
+    transition: 0.3s ease-in-out;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .6;
+    z-index: 2;
+    transform-origin: center;
+}
+
+.search-fields ul .selected
+{
+    background-color: rgb(26, 26, 26);;
+}
+
+.search-fields ul .selected::after
+{
+    transform: rotate(45deg);
+    top: -2px;
+}
+
+.search-fields .lists
+{
+    flex: 1;
+    width: 100%;
+    display: flex;
+}
+
+.search-fields .lists > div
+{
+    margin: 0 5px;
+}
+
+
+
+#filter .search-fields[data-row='2']
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 535px;
+    margin: 10px 0;
+    margin-left: 395px;
+}
+
+#filter .search-fields[data-row='2'] p
+{
+    font-size: 1.4rem;
+    margin-right: 15px;
+}
+
+.search-fields[data-row='2'] input[type='date']
+{
+    background-color: var(--sec-color);
+    border: none;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    border: 1px solid #333;
+    width: 180px;
+    margin: 0 0;
+    position: relative;
+    padding: 0 7px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator 
+{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    color: transparent;
+    filter: invert();
+    /* background: transparent; */
+  }
+  
+  .search-fields[data-row='2'] input[type="date"]::-webkit-inner-spin-button,
+  .search-fields[data-row='2'] input[type="date"]::-webkit-clear-button 
+  {
+    z-index: -10;
+  }
+
+
+.search-fields[data-row='2'] input[type="date"]:not(.has-value):before 
+{
+    content: attr(placeholder);
+    width: 100%;
+  }
+
+.search-fields[data-row='2'] input[type="date"]::-webkit-input-placeholder 
+{
+    z-index: 2;
+}
+
+.search-fields[data-row='btns']
+{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-fields[data-row='btns'] div
+{
+    display: flex;
+}
+
+.search-fields[data-row='btns'] label
+{
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #333;
+    background-color: var(--sec-color);
+    margin-right: 7px;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.search-fields[data-row='btns'] label.selected
+{
+    background-color: #333;
+}
+
+.search-fields[data-row='btns'] label:hover
+{
+    box-shadow: 0 0 10px #333;
+}
+
+.search-fields[data-row='btns'] label[for='alp_asc']
+{
+    background-image: url(../icons/icons/alp_sort_asc.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.search-fields[data-row='btns'] label[for='alp_desc']
+{
+    background-image: url(../icons/icons/alp_sort_desc.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.search-fields[data-row='btns'] input[type='submit'], .search-fields[data-row='btns'] input[type='reset']
+{
+    padding: 1px 13px;
+    border: none;
+    background-color: var(--orange);
+    font-size: 1.3rem;
+    border: 1px solid var(--text-color);
+    margin-right: 7px;
+    transition: .3s ease-in-out;
+}
+
+.search-fields[data-row='btns'] input[type='reset']
+{
+    background-color: rgb(56, 56, 56);
+}
+
+.search-fields[data-row='btns'] input[type='submit']:hover, #filter .container input[type='reset']:hover
+{
+    cursor:pointer;
+    box-shadow: 0 0 17px #333;
+    opacity: .9;
+}
+
+main
+{
+    position: relative;
+}
+
+.scroll-up
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10%;
+    height: 100%;
+    align-items: center;
+}
+
+.scroll-up .back
+{
+    position: sticky;
+    top: 80vh;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-color: var(--orange);
+    transition: .3s ease-in-out;
+}
+
+.scroll-up .back:hover
+{
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--orange);
+}
+
+.scroll-up .icon 
+{
+    background-image: url(../icons/icons/arrow_up.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}

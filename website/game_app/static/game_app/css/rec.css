@@ -1,0 +1,99 @@
+@import url(general.css);
+
+input
+{
+    display: none;
+}
+
+.selected
+{
+    background-color: #444;
+}
+
+main
+{
+    display: flex;
+    justify-content: center;
+}
+
+.container
+{
+    width: 900px;
+    background-color: var(--sec-color);
+}
+
+.content-selector
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+label
+{
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    padding: 5px 0;
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+    background-color: #333;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+
+.text
+{
+    padding: 10px;
+    font-size: 1.3rem;
+}
+
+.text span
+{
+    color: var(--orange);
+}
+
+
+
+#games ul, #users ul
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#games li
+{
+    margin: 5px;
+}
+
+#games img
+{
+    width: 200px;
+}
+
+.hidden
+{
+    display: none;
+}
+
+#users img
+{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+#users li
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.error
+{
+    color: red;
+    text-align: center;
+    font-size: 2rem;
+    margin: 40px 40px;
+}

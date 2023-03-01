@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"/>
+    <link rel="shortcut icon" href="{% static 'game_app/icons/icons/cube.svg' %}" />
+{% block css %}
+{% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-box">
+                <a href="/"><img class="main-logo" src="{% static 'game_app/icons/icons/cube.svg' %}" style="filter: invert();"></a>
+                <form action="{% url 'search' %}" class="search" method="get">
+                    <label>
+                        <input type="search" name="name" placeholder="Поиск">
+                        <img src="{% static 'game_app/icons/icons/search.svg' %}" >
+                    </label>
+                </form>
+
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'support' %}"><button class="login">Обратная связь</button></a>
+                    <a href="/profile/{{ request.user.username }}"><button class="login">Личный кабинет</button></a>
+                    {% else %}
+                    <a href="{% url 'login' %}"><button class="login">Войти</button></a>
+                    {% endif %}
+
+            </div>
+        </header>
+{% block main %}
+{% endblock %}
+        <footer>
+            <p>Здесь что-то есть, и возможно что-то будет</p>
+        </footer>
+    </div>
+{% block js %}
+{% endblock %}
+</body>
+</html>

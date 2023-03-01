@@ -1,0 +1,35 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/support.css' %}" />
+    <title>Обратная связь</title>
+{% endblock %}
+{% block main %}
+<main>
+    <div class="MessageForm">
+        <form action="{% url 'subscribe' %}" method="post">
+            {% csrf_token %}
+            <label>Подписаться на рассылку:</label>
+            <select name="topics" multiple size="4">
+                {% for topic in topics %}
+                    {% if topic in selected %}
+                        <option selected>
+                    {% else %}
+                        <option>
+                    {% endif %}
+                    {{ topic }}</option>
+                {% endfor %}
+            </select>
+            <button class="login">Подписаться</button>
+        </form>
+    </div>
+
+
+  <form method="post">
+      {% csrf_token %}
+        <input class="topic-input" name="topic" type="text" placeholder="Тема вопроса" required/>
+        <textarea name="text" type='text' placeholder="Опишите вопрос" required></textarea>
+        <button class="login">Отправить</button>
+  </form>
+</main>
+{% endblock %}

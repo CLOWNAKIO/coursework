@@ -1,0 +1,36 @@
+Идентификатор клиента
+l5ogt2dv7937ykpust4nsb9235cbp6
+
+Секретный код клиента
+eds88axehl8gw6kur9qkpdb0zk9e4n
+
+
+
+https://id.twitch.tv/oauth2/token?client_id=l5ogt2dv7937ykpust4nsb9235cbp6
+&client_secret=eds88axehl8gw6kur9qkpdb0zk9e4n&grant_type=client_credentials
+
+
+
+from datetime import datetime
+from requests import post
+from requests.models import Request, Response
+
+start = datetime.now()
+client_id = 'l5ogt2dv7937ykpust4nsb9235cbp6'
+secret_code = 'eds88axehl8gw6kur9qkpdb0zk9e4n'
+
+url = 'https://id.twitch.tv/oauth2/token?client_id=l5ogt2dv7937ykpust4nsb9235cbp6&client_secret=eds88axehl8gw6kur9qkpdb0zk9e4n&grant_type=client_credentials'
+
+req = post(url).json()
+
+token, expires_in, type = req.values()
+
+# print(token, type)
+
+url = 'https://api.igdb.com/v4/themes'
+
+req = post(url, headers={'Client-ID': client_id, 'Authorization': type + ' ' + token},
+           data='fields id, name; limit 500; sort id;').json()
+
+print(req)
+print(datetime.now() - start)

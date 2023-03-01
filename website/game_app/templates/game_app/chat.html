@@ -1,0 +1,100 @@
+{% extends 'game_app/base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link type='text/css' rel="stylesheet" href="{% static 'game_app/css/chat.css' %}" />
+    <title>Chat</title>
+{% endblock %}
+{% block main %}
+        <main>
+            <div class="container">
+                    <div id="chat-log" >
+                        {% for message in messages.all %}
+                            {% if message.author.username == request.user.username %}
+                                <div class="message sender" data-pk="{{ message.pk }}">
+                            {% else %}
+                                <div class="message receiver" data-pk="{{ message.pk }}">
+                            {% endif %}
+
+                                    <div class="user-name">
+                                        <span>{{ message.author.username }}</span>
+                                        <span>{{ message.date }}</span>
+                                    </div>
+                                     {% if message.question %}
+                                    <div class="parent-message" data-pk="{{ message.question.pk }}">
+                                        <div class="user-name">{{ message.question.author }}</div>
+                                        <div class="message-content">{{ message.question.content }}</div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="message-content">{{ message.content | linebreaks }}</div>
+                                    <div class="actions">
+                                        <div class="like">
+                                            {% if request.user in message.like.all %}
+                                            <span class="material-symbols-outlined" data-fill="true">thumb_up</span>
+                                            {% else %}
+                                            <span class="material-symbols-outlined" data-fill="false">thumb_up</span>
+                                            {% endif %}
+
+                                            <span>{{ message.like.all|length }}</span>
+                                        </div>
+                                        <div class="like-users">
+                                            {% for user in message.like.all %}
+                                            {% if user.profile.avatar %}
+                                            <img src="{{ user.profile.avatar.url }}" title="{{ user.profile.nickname }}">
+                                            {% else %}
+                                            <img src="{% static 'game_app/icons/icons/circle.svg' %}" title="{{ user.profile.nickname }}">
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="dislike" >
+                                            {% if request.user in message.dislike.all %}
+                                            <span class="material-symbols-outlined" data-fill="true">thumb_down</span>
+                                            {% else %}
+                                            <span class="material-symbols-outlined" data-fill="false">thumb_down</span>
+                                            {% endif %}
+                                            <span>{{ message.dislike.all|length }}</span>
+                                        </div>
+                                        <div class="dislike-users">
+                                              {% for user in message.dislike.all %}
+                                                {% if user.profile.avatar %}
+                                                    <img src="{{ user.profile.avatar.url }}" title="{{ user.profile.nickname }}">
+                                                {% else %}
+                                                    <img src="{% static 'game_app/icons/icons/circle.svg' %}" title="{{ user.profile.nickname }}">
+                                                {% endif%}
+                                            {% endfor %}
+                                        </div>
+                                        {% if request.user.is_authenticated %}
+                                        <div class="reply">
+                                            Ответить
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            {% empty %}
+                                <div id="emptyText">
+                                    Сообщений нет
+                                </div>
+                            {% endfor %}
+                    </div>
+                {% if request.user.is_authenticated %}
+                <div class="send-container ">
+                    <div class="parent-message none">
+                        <div class="user-name"></div>
+                        <div class="message-content"></div>
+                        <div id="cancel"><span class="material-symbols-outlined">close</span></div>
+                    </div>
+                    <div class="form">
+                        <div id="chat-message-input" contenteditable="true"></div>
+                        <button id="chat-message-submit">Отправить</button>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </main>
+{% endblock %}
+{% block js %}
+    {{ room_name|json_script:"room-name" }}
+    {{ request.user.username|json_script:"user_id" }}
+    <script src="{% static 'game_app/js/chat.js' %}"></script>
+{% endblock %}

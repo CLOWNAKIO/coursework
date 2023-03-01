@@ -1,0 +1,317 @@
+@import url(general.css);
+
+html {
+  scroll-behavior: smooth;
+}
+
+main input
+{
+    color: var(--orange);
+}
+
+main
+{
+    height: calc(100vh - 100px - 20px);
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.container
+{
+    padding: 20px;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sec-color);
+    position: relative;
+
+}
+
+#chat-log
+{
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+            overflow-y: scroll;
+
+}
+
+
+.sender
+{
+    align-self: end;
+}
+
+
+.actions
+{
+    display: flex;
+    flex-direction: row;
+    width: calc(100% + 20px);
+    transform: translateX(-10px);
+    justify-content: flex-start;
+    position: relative;
+    border-top: 1px solid #555;
+    background-color: #444;
+    align-items: center;
+}
+
+.message
+{
+    margin: 10px 0;
+    background-color: #333;
+    width: 40%;
+    padding: 0 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+
+.like, .dislike
+{
+
+    margin: 5px 5px;
+}
+
+.like span, .like
+{
+    color: lightblue;
+}
+
+.dislike span, .dislike
+{
+    color: red;
+}
+
+.like:hover, .dislike:hover
+{
+    color: var(--orange);
+    cursor: pointer;
+}
+
+.material-symbols-outlined[data-fill="false"]
+{
+    transition: .3s ease;
+   font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 48
+
+}
+
+.material-symbols-outlined[data-fill="true"] {
+    transition: .3s ease;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.user-name
+{
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user-name > span:first-of-type
+{
+    color: var(--back-orange);
+    font-size: 1rem;
+}
+
+.user-name > span:last-of-type
+{
+    opacity: .8;
+    font-size: .8rem;
+    font-style: italic;
+
+}
+
+.message-content
+{
+    margin: 5px 0;
+    font-size: .8rem;
+    line-height: 3srem;
+    overflow-wrap: break-word;
+}
+
+
+.send-container
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    justify-content: center;
+    background-color: #222;
+    bottom: 20px;
+    border: 1px solid #454545;
+    margin-top: 40px;
+}
+
+#chat-message-submit
+{
+    font-size: 1rem;
+    padding: 5px;
+    background: transparent;
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+}
+
+#chat-message-input
+{
+    max-height: 12rem;
+    min-height: 1.2rem;
+    line-height: 1.2rem;
+
+    background-color: #333;
+
+    border: none;
+    resize: none;
+    color: var(--orange);
+    outline: none;
+    padding: 5px 10px;
+    font-size: 1rem;
+    margin: 10px 0 10px 10%;
+    width: 80%;
+    border-radius: .5rem;
+
+    overflow-y: scroll;
+}
+
+.like, .dislike
+{
+    position: relative;
+    transition: .2s ease-in-out;
+}
+
+.like-users, .dislike-users
+{
+    height: 3.2rem;
+    display: flex;
+    background-color: #242424;
+    border: 1px solid #555;
+    border-radius: 3rem;
+    align-items: center;
+    position: absolute;
+
+    display: none;
+}
+
+
+
+.like-users
+{
+    top: -3.5rem;
+    left: 0;
+}
+
+.dislike-users
+{
+    top: -3.5rem;
+    left: 3rem;
+}
+
+.like-users img, .dislike-users img
+{
+    height: 48px;
+    width: 48px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.like:hover ~ .like-users:not(:empty), .dislike:hover ~ .dislike-users:not(:empty), .dislike-users:hover, .like-users:hover
+{
+    display: flex;
+}
+
+.reply
+{
+    cursor: pointer;
+}
+
+.reply:hover
+{
+    color: var(--orange);
+}
+
+.parent-message
+{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+    border-left: 3px solid #555;
+    margin: 7px;
+    cursor: pointer;
+
+}
+
+.parent-message .message-content
+{
+    max-height: 6rem;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+}
+
+.none
+{
+    display: none;
+}
+
+#cancel
+{
+    cursor: pointer;
+}
+
+.retrieved
+{
+    position: relative;
+    z-index: 100;
+    transition: .2s ease-in-out;
+}
+
+.sender.retrieved::before
+{
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: 0;
+    background-color: #555;
+    width: 250%;
+    height: calc(100% + 10px);
+    z-index: 0;
+    opacity: .2;
+}
+
+.receiver.retrieved::before
+{
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    background-color: #555;
+    width: 250%;
+    height: calc(100% + 10px);
+    z-index: 0;
+    opacity: .2;
+}
+
+.form
+{
+    display: flex;
+    width: 100%;
+}
